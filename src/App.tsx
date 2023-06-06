@@ -1,14 +1,23 @@
 import React, {useState} from 'react';
 import './App.css';
-//1 урок.вложенные компоненты
+// 5 урок input
+import {FullInput} from "./site/FullInput";
+import {Input} from "./site/Input";
+import {Button} from "./site/Button";
+/*//1 урок.вложенные компоненты
 import {Body} from './site/Body';
 import {Header} from "./site/Header";
-import {Footer} from "./site/Footer";
+import {Footer} from "./site/Footer";*/
+
+/*//4 урок filter
+import {Filter} from "./site/Filter";*/
+
 /*//2 урок.метод map
 import {CarsType, NewComponent} from "./site/NewComponent";*/
 
+/*
 //1 урок.вложенные компоненты
-/*function App() {
+function App() {
     return (
         <>
             <Header title = {'NEW HEADER'} />
@@ -17,7 +26,8 @@ import {CarsType, NewComponent} from "./site/NewComponent";*/
         </>
 
     );
-}*/
+}
+*/
 
 /*//2 урок.метод map
 function App() {
@@ -32,7 +42,8 @@ function App() {
     );
 }*/
 
-// useState
+/*
+// 3 урок useState
 function App() {
 
     let[a, setA]=useState(1)
@@ -53,6 +64,75 @@ function App() {
         </div>
 
     );
+}
+*/
+
+/*// 4 урок filter
+export type FilterType='all'|'dollar'|'ruble'
+
+function App() {
+  const [money, setMoney] = useState([
+    { banknote: 'dollar', nominal: 100, number: ' a1234567890' },
+    { banknote: 'dollar', nominal: 50, number: ' z1234567890' },
+    { banknote: 'ruble', nominal: 100, number: ' w1234567890' },
+    { banknote: 'dollar', nominal: 100, number: ' e1234567890' },
+    { banknote: 'dollar', nominal: 50, number: ' c1234567890' },
+    { banknote: 'ruble', nominal: 100, number: ' r1234567890' },
+    { banknote: 'dollar', nominal: 50, number: ' x1234567890' },
+    { banknote: 'ruble', nominal: 50, number: ' v1234567890' },
+  ])
+
+  const[filter,setFilter]=useState<FilterType>('all')
+
+    let currentMoney = money;
+    if (filter === 'dollar') {
+        currentMoney = money.filter(filteredMoney =>filteredMoney.banknote === 'dollar');
+    }
+
+    if (filter === 'ruble') {
+        currentMoney = money.filter(filteredMoney =>filteredMoney.banknote === 'ruble');
+    }
+
+    const onclickFilterHandler = (nameButton: FilterType) => {
+        setFilter((nameButton))
+    }
+
+  return <Filter currentMoney={currentMoney} onFilterChange={onclickFilterHandler}/>
+}*/
+
+// 5 урок input
+function App() {
+let [message, setMessage] = useState([
+    {message: 'message1'},
+    {message: 'message2'},
+    {message: 'message3'}
+])
+
+    let[title,setTitle]=useState('')
+
+    const addMessage=(title:string)=>{
+        let newMessage={message:title};
+        setMessage([newMessage,...message])
+    }
+
+    const callBackButtonHandler=()=>{
+        addMessage(title);
+        setTitle('')
+    }
+
+    return (
+        <div className={'App'}>
+
+            <Input setTitle={setTitle} title={title}/>
+            <Button name={'+'} callBack={callBackButtonHandler}/>
+            {message.map((el,index)=>{
+                return(
+                    <div key={index}>{el.message}</div>
+                )
+            })}
+        </div>
+    )
+
 }
 
 export default App;
